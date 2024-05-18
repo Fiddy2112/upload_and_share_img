@@ -21,7 +21,13 @@ function WalletConnect({ children }) {
       }
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-      await provider.send("eth_requestAccounts", []);
+      if (provider) {
+        await provider.send("eth_requestAccounts", []);
+
+        window.ethereum.on("accountChanged", () => {
+          window.location.reload();
+        });
+      }
 
       const signer = provider.getSigner();
 

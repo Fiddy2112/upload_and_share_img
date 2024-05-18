@@ -5,7 +5,8 @@ import { WalletContext } from "@/context/WalletConnect";
 import FileUpload from "@/components/FileUpload";
 
 import toast, { Toaster } from "react-hot-toast";
-import { showAddress } from "@/utils/features";
+import { showAddress } from "@/utils/Features";
+import Display from "@/components/Display";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,15 +58,10 @@ export default function Home() {
         )}
       </div>
       <div className="container mx-auto mt-4">
-        {account ? (
-          <FileUpload
-            account={account}
-            provider={provider}
-            contract={contract}
-          />
-        ) : (
-          ""
-        )}
+        {account ? <FileUpload account={account} contract={contract} /> : ""}
+        <div className="mt-4">
+          {account ? <Display account={account} contract={contract} /> : ""}
+        </div>
       </div>
       <Toaster />
     </div>

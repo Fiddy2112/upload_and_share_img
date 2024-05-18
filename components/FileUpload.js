@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "dotenv/config";
+import toast, { Toaster } from "react-hot-toast";
 
 function FileUpload({ contract, account }) {
   const [file, setFile] = useState(null);
@@ -39,8 +40,12 @@ function FileUpload({ contract, account }) {
         );
         console.log(res.data);
         const ImgHash = `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
-        console.log(ImgHash); //https://gateway.pinata.cloud/ipfs/Qmc15qKMRze77KmTmBRfRovV5pZrSiFgYFKfM6fXhUzfFc
+        console.log(ImgHash); //https://gateway.pinata.cloud/ipfs/QmYoe7k35JCGWtSPynS5khjb7FoSt2KKtT3u1ocig1iEXB
+        contract.add(account, ImgHash);
+        toast.success("Image Uploaded");
         setLoading(false);
+        setFileName("No image selected");
+        setFile(null);
       }
     } catch (err) {
       console.error(
@@ -130,6 +135,7 @@ function FileUpload({ contract, account }) {
           </div>
         </form>
       )}
+      <Toaster />
     </div>
   );
 }
