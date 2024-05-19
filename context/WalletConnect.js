@@ -9,7 +9,6 @@ function WalletConnect({ children }) {
   const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
 
   const connectWallet = async () => {
     let contractAddress = "0x86e732348DfFc12E187a00F1BB9B330836318570";
@@ -33,8 +32,6 @@ function WalletConnect({ children }) {
 
       const address = await signer.getAddress();
 
-      console.log(address);
-
       setAccount(address);
 
       const contract = new ethers.Contract(
@@ -42,7 +39,6 @@ function WalletConnect({ children }) {
         contractABI,
         signer
       );
-      console.log(contract);
       setContract(contract);
       setProvider(signer);
     } catch (err) {

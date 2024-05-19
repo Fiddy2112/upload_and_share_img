@@ -16,7 +16,10 @@ function FileUpload({ contract, account }) {
     reader.onloadend = () => {
       setFile(data);
     };
-    console.log(data);
+    if (data) {
+      toast.success("Already have files");
+      console.log("Already have files:" + data.name);
+    }
     setFileName(e.target.files[0].name);
     e.preventDefault();
   };
@@ -38,9 +41,7 @@ function FileUpload({ contract, account }) {
             },
           }
         );
-        console.log(res.data);
         const ImgHash = `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
-        console.log(ImgHash); //https://gateway.pinata.cloud/ipfs/QmYoe7k35JCGWtSPynS5khjb7FoSt2KKtT3u1ocig1iEXB
         contract.add(account, ImgHash);
         toast.success("Image Uploaded");
         setLoading(false);
@@ -54,8 +55,6 @@ function FileUpload({ contract, account }) {
       );
     }
   };
-
-  console.log(loading);
 
   return (
     <div>
@@ -83,7 +82,7 @@ function FileUpload({ contract, account }) {
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full lg:p-0 p-2">
             <label
               htmlFor="dropzone-file"
               className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
